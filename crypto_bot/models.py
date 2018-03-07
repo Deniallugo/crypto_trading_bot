@@ -20,7 +20,7 @@ class CoingySettings(models.Model):
         ('orders', 'orders'),
         ('all', 'all'),
 
-    ))
+    ), max_length=6)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
