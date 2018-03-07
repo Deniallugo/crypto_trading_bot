@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crypto_bot'
 ]
 
 MIDDLEWARE = [
@@ -116,7 +117,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+
 STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/static'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"), ]
 # Redis connection configuration
 REDIS_PORT = 6379
 REDIS_RESULT_DB = 1
@@ -152,11 +158,6 @@ REST_FRAMEWORK_EXTENSIONS = {
     'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 15
 }
 WEB3_HTTP_PROVIDER = 'https://api.myetherapi.com/eth'
-try:
-    from .settings_local import *
-except:
-    pass
-
 RABBIT_PORT = 15672
 RABBIT_BACKEND_DB = 0
 

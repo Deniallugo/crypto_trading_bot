@@ -12,7 +12,7 @@ services:
     volumes:
       - db:/var/lib/postgresql
     ports:
-      - "5435:5432"
+      - "5432"
 
   redis:
     image: redis:3.0
@@ -27,8 +27,8 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=mypass
     ports:
-      - "5672:5672"  # we forward this port because it's useful for debugging
-      - "15672:15672"  # here, we can access rabbitmq management plugin
+      - "5672"  # we forward this port because it's useful for debugging
+      - "15672"  # here, we can access rabbitmq management plugin
 
 
   web:
@@ -42,10 +42,10 @@ services:
       - DEBUG
     volumes:
       - .:/usr/src/app
-      - static:/var/www/static
+      - ./static:/var/www/static
       - ./media:/var/www/media
     ports:
-      - "8002:8000"
+      - "8000"
     links:
       - db
       - redis
@@ -76,11 +76,11 @@ services:
   nginx:
     image: nginx:1.13
     volumes:
-      - ./miningPlatform/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./crypto_trading/nginx/nginx.conf:/etc/nginx/nginx.conf
     volumes_from:
       - web
     ports:
-      - "80:80"
+      - "85:80"
     links:
       - web
 
