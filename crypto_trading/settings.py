@@ -35,15 +35,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crypto_bot'
+    'djcelery',
+    'crypto_bot.apps.CryptoBotConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -135,17 +136,6 @@ BROKER_CONNECTION_TIMEOUT = 10
 
 # Celery configuration
 CELERY_ENABLE_UTC = USE_TZ
-CELERY_TIMEZONE = TIME_ZONE
-CELERY_ALWAYS_EAGER = False
-CELERY_TASK_PUBLISH_RETRY = True
-CELERY_DISABLE_RATE_LIMITS = False
-CELERY_IGNORE_RESULT = True
-CELERY_SEND_TASK_ERROR_EMAILS = False
-CELERY_TASK_RESULT_EXPIRES = 600
-CELERY_RESULT_PERSISTENT = False
-CELERY_RESULT_BACKEND = 'redis://%s:%d/%d' % (
-    REDIS_HOST, REDIS_PORT, REDIS_RESULT_DB)
-CELERY_REDIS_MAX_CONNECTIONS = 20
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERY_TASK_SERIALIZER = 'pickle'
 CELERY_ACCEPT_CONTENT = ['application/x-python-serialize']
@@ -157,15 +147,12 @@ CELERYD_MAX_TASKS_PER_CHILD = 1000
 REST_FRAMEWORK_EXTENSIONS = {
     'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 15
 }
-WEB3_HTTP_PROVIDER = 'https://api.myetherapi.com/eth'
 RABBIT_PORT = 15672
 RABBIT_BACKEND_DB = 0
 
 RABBIT_USER = 'admin'
 RABBIT_PASS = 'mypass'
 RABBIT_HOST = ''
-# BROKER_URL = 'amqp://%s:%s@%s:%d/rabbit' % (RABBIT_USER, RABBIT_PASS,
-#                                             RABBIT_HOST, RABBIT_PORT)
 RABBIT_HOSTNAME = os.environ.get('RABBIT_PORT_5672_TCP', 'rabbit')
 
 if RABBIT_HOSTNAME.startswith('tcp://'):
@@ -182,4 +169,3 @@ if not BROKER_URL:
 
 BROKER_HEARTBEAT = '?heartbeat=30'
 BROKER_URL += BROKER_HEARTBEAT
-CKEDITOR_UPLOAD_PATH = "uploads/"

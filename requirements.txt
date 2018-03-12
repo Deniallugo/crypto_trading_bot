@@ -18,3 +18,4 @@ django-celery
 hiredis
 django_celery_results
 gunicorn
+anyjson

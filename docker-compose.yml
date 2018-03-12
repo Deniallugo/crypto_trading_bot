@@ -42,10 +42,10 @@ services:
       - DEBUG
     volumes:
       - .:/usr/src/app
-      - ./static:/var/www/static
+      - static:/var/www/static
       - ./media:/var/www/media
     ports:
-      - "8000"
+      - "8017:8000"
     links:
       - db
       - redis
