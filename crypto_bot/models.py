@@ -8,6 +8,7 @@ class CoinPair(models.Model):
     firstCoinName = models.CharField(max_length=255)
     secondCoinName = models.CharField(max_length=255)
     exchange_code = models.CharField(max_length=255)
+    min_wall = models.FloatField(default=50)
     active = models.BooleanField(default=True)
     position_type = models.CharField(choices=(
         ('history', 'История'),
@@ -26,7 +27,6 @@ class CoingySettings(models.Model):
     api_key = models.CharField(max_length=255)
     secret_key = models.CharField(max_length=255)
     main = models.BooleanField(default=False)
-    min_wall = models.FloatField(null=True)
 
     @classmethod
     @cache_for(60 * 5)
@@ -72,7 +72,7 @@ class MarketPosition(models.Model):
     @cache_for(60 * 60)
     def wall(self):
         return float(self.quantity) > min(self.avg_quantity_day() * 100,
-                                          CoingySettings.main_setting().min_wall)
+                                          self.coin_pair.min_wall or 0)
 
     def __str__(self):
         return str(self.price)
