@@ -3,7 +3,6 @@ from django.contrib import admin
 # Register your models here.
 from .models import *
 
-admin.site.register(CoinPair)
 admin.site.register(CoingySettings)
 
 
@@ -13,3 +12,9 @@ class MarketPositionAdmin(admin.ModelAdmin):
                     'created_at', 'updated_at']
     # list_filter = ['wall']
     # list_editable = ['wall']
+
+
+@admin.register(CoinPair)
+class CoinPairAdmin(admin.ModelAdmin):
+    list_display = ['firstCoinName', 'secondCoinName', 'exchange_code']
+    list_filter = ['firstCoinName', 'secondCoinName', 'exchange_code']
