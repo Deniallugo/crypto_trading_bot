@@ -65,7 +65,8 @@ def find_new_market_positions():
                               f' {market_position_obj.coin_pair.position_type} '
                               f' price {market_position_obj.price} '
                               f' quantity {market_position_obj.quantity}'
+                              f' time {market_position_obj.updated_at}'
                               )
 
 
-app.add_periodic_task(100.0, find_new_market_positions)
+app.add_periodic_task(5.0, find_new_market_positions)
