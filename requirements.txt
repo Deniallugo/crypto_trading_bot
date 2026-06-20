@@ -12,7 +12,7 @@ requests==2.18.4
 urllib3==1.22
 redis==2.10.5
 django-cors-headers
-Celery==4.0.2
+Celery==5.2.2
 django-redis-cache==1.7.1
 django-celery
 hiredis
